@@ -1,0 +1,35 @@
+# ─── Sensitive / Environment files ───────────────────────────────────────────
+backend/env.php
+backend/uploads/
+*.zip
+
+# ─── OS & Editor ─────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# ─── Flutter / Dart ───────────────────────────────────────────────────────────
+mobileapp/.dart_tool/
+mobileapp/.flutter-plugins
+mobileapp/.flutter-plugins-dependencies
+mobileapp/build/
+mobileapp/.pub-cache/
+mobileapp/pubspec.lock
+
+# ─── Android build artifacts ─────────────────────────────────────────────────
+mobileapp/android/.gradle/
+mobileapp/android/local.properties
+mobileapp/android/app/debug/
+mobileapp/android/app/release/
+mobileapp/android/app/*.apk
+mobileapp/android/app/*.aab
+mobileapp/android/captures/
+
+# ─── iOS ─────────────────────────────────────────────────────────────────────
+mobileapp/ios/Pods/
+mobileapp/ios/.symlinks/
+
+# ─── Logs ────────────────────────────────────────────────────────────────────
+*.log

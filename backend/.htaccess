@@ -1,0 +1,56 @@
+# ============================================================
+# Community Connect - Apache Configuration
+# ============================================================
+
+Options -Indexes
+
+# ─── Force HTTPS ─────────────────────────────────────────────────────────────
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{HTTPS} off
+    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
+
+# ─── Deny access to sensitive files ──────────────────────────────────────────
+<FilesMatch "^(env\.php|\.env|\.env\.example|composer\.json|composer\.lock|database\.sql)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# ─── Block config and middleware folders from direct browser access ───────────
+<IfModule mod_rewrite.c>
+    RewriteRule ^config/ - [F,L]
+    RewriteRule ^middleware/ - [F,L]
+</IfModule>
+
+# ─── Prevent PHP execution inside uploads directory ──────────────────────────
+<FilesMatch "uploads/.*\.(php|php3|php4|php5|phtml|pl|cgi|sh)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# ─── CORS Headers ────────────────────────────────────────────────────────────
+<IfModule mod_headers.c>
+    Header always set Access-Control-Allow-Origin "*"
+    Header always set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
+    Header always set Access-Control-Allow-Headers "Content-Type, Authorization, X-Requested-With"
+</IfModule>
+
+# ─── Security Headers ─────────────────────────────────────────────────────────
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+</IfModule>
+
+# ─── Cache uploaded images ────────────────────────────────────────────────────
+<IfModule mod_expires.c>
+    ExpiresActive On
+    <FilesMatch "\.(jpg|jpeg|png|webp|gif)$">
+        ExpiresDefault "access plus 30 days"
+    </FilesMatch>
+</IfModule>
+
+# ─── MIME Types ───────────────────────────────────────────────────────────────
+<IfModule mod_mime.c>
+    AddType image/webp .webp
+</IfModule>
